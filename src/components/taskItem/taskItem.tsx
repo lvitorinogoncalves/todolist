@@ -1,19 +1,15 @@
 import React, { useState } from "react";
+import TaskType from "../types/types";
+import Button from "../button/button";
 
-interface Task {
-    id: number;
-    text: string;
-    completed: boolean;
-  }
-
-interface TaskItemProps {
-  task: Task;
+type TaskItemProps = {
+  task: TaskType;
   onDelete: () => void;
   onEdit: (newText: string) => void;
   onToggleComplete: () => void;
-}
+};
 
-const TaskItem: React.FC<TaskItemProps> = ({ task, onDelete, onEdit, onToggleComplete }) => {
+function TaskItem({ task, onDelete, onEdit, onToggleComplete }: TaskItemProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [newText, setNewText] = useState(task.text);
 
@@ -32,34 +28,38 @@ const TaskItem: React.FC<TaskItemProps> = ({ task, onDelete, onEdit, onToggleCom
   };
 
   return (
-    <div className="item">
-      <label>
-        <input
-          type="checkbox"
-          checked={task.completed}
-          onChange={onToggleComplete}
-        />
-        {isEditing ? (
+    <tr className={`item ${isEditing ? 'editing' : ''}`}>
+      <td>
+        <label>
           <input
-            type="text"
-            value={newText}
-            onChange={(e) => setNewText(e.target.value)}
+            type="checkbox"
+            checked={task.completed}
+            onChange={onToggleComplete}
           />
+          {isEditing ? (
+            <input
+              type="text"
+              value={newText}
+              onChange={(e) => setNewText(e.target.value)}
+            />
+          ) : (
+            <span>{task.text}</span>
+          )}
+        </label>
+      </td>
+      <td>
+        <Button onClick={onDelete} children="Exluir"></Button>
+        {isEditing ? (
+          <>
+          <Button onClick={handleCancelEdit} children="Cancelar"></Button>
+          <Button onClick={handleSaveEdit} children="Salvar"></Button>
+          </>
         ) : (
-          <p>{task.text}</p>
+          <Button onClick={handleEditClick} children="Editar"></Button>
         )}
-      </label>
-      <button onClick={onDelete}>Delete</button>
-      {isEditing ? (
-        <>
-          <button onClick={handleSaveEdit}>Save</button>
-          <button onClick={handleCancelEdit}>Cancel</button>
-        </>
-      ) : (
-        <button onClick={handleEditClick}>Edit</button>
-      )}
-    </div>
+      </td>
+    </tr>
   );
-};
+}
 
 export default TaskItem;
