@@ -1,15 +1,19 @@
+import React from "react";
 import Header from "./components/header/header";
-import Task from "./components/task/task";
+import Router from "./components/router/router";
 import Footer from "./components/footer/footer";
+import { BrowserRouter } from "react-router-dom";
 import "./App.css";
 
 function App() {
   return (
-    <div className="App">
-      <Header />
-      <Task />
-      <Footer />
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <Header />
+        <Router />
+        <Footer />
+      </div>
+    </BrowserRouter>
   );
 }
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import TaskType from "../types/types";
 import Button from "../button/button";
+import styles from "./taskeItem.module.css";
 
 type TaskItemProps = {
   task: TaskType;
@@ -43,7 +44,7 @@ function TaskItem({ task, onDelete, onEdit, onToggleComplete }: TaskItemProps) {
   };
 
   return (
-    <tr className={`item ${isEditing ? "editing" : ""}`}>
+    <tr className={styles.container}>
       <td>
         <label>
           <input

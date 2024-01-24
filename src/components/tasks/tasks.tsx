@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import InputButtonAdd from "../inputButtonAdd/inputButtonAdd";
 import TaskItem from "../taskItem/taskItem";
+import styles from "./taskes.module.css";
 import TaskType from "../types/types";
 
 function Task() {
@@ -42,7 +43,7 @@ function Task() {
 
   return (
     <>
-      <div className="AddTask">
+      <div className={styles.container}>
         <InputButtonAdd
           value={newTask}
           onChange={setNewTask}
@@ -50,7 +51,7 @@ function Task() {
           placeholder="Digite uma nova tarefa"
         />
       </div>
-      <div className="List">
+      <div className={styles.list}>
         <table>
           <thead>
             <tr>
